@@ -20,6 +20,8 @@ const reducer = (state, action) => {
       return { ...state, count: state.count - 1 };
     case 'RESET_COUNT':
       return { ...state, count: 0 };
+    case 'UPDATE_COLOR':
+      return { ...state, color: action.payload };
   }
 };
 
@@ -30,17 +32,20 @@ export default function Counter() {
 
   useEffect(() => {
     if (state.count === 0) {
+      dispatch({ type: 'UPDATE_COLOR', payload: colors.yellow });
       // setCurrentColor(colors.yellow);
     }
 
     if (state.count > 0) {
+      dispatch({ type: 'UPDATE_COLOR', payload: colors.green });
       // setCurrentColor(colors.green);
     }
 
     if (state.count < 0) {
+      dispatch({ type: 'UPDATE_COLOR', payload: colors.red });
       // setCurrentColor(colors.red);
     }
-  }, [state]);
+  }, [state.count]);
 
   const increment = () => {
     dispatch({ type: 'INCREMENT_COUNT' });
